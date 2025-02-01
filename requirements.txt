@@ -1,4 +1,4 @@
-streamlit==1.24.1
 pandas==2.0.3
-folium==0.14.0
-streamlit-folium==0.24.0
+streamlit==1.35.0  # or 1.24.1 if downgrading
+streamlit-folium==0.24.0  # or <=0.6.3 for older Streamlit
+folium>=0.12.1
