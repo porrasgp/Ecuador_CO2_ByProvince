@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+!pip install folium
 import folium
 from streamlit_folium import folium_static
 import math
