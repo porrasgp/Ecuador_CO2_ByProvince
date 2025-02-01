@@ -2,21 +2,6 @@
 import os
 import subprocess
 
-# Función para instalar paquetes automáticamente si no están presentes
-def install_package(package):
-    try:
-        __import__(package)
-    except ImportError:
-        subprocess.check_call(["pip", "install", package])
-
-# Lista de paquetes necesarios
-required_packages = ["streamlit", "pandas", "folium", "streamlit_folium", "folium.plugins"]
-
-# Instalar cada paquete si es necesario
-for package in required_packages:
-    install_package(package)
-
-
 
 import streamlit as st
 import pandas as pd
