@@ -175,7 +175,7 @@ if 'analyze' in st.session_state:
             # Mostrar mapa
             col1, col2 = st.columns([3, 1])
             with col1:
-                folium_static(m, height=600)
+                folium_static(m, height=800)
             
             with col2:
                 st.metric("📍 Ubicaciones Detectadas", len(filtered))
