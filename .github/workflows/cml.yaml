@@ -20,13 +20,5 @@ jobs:
           AWS_REGION: ${{ secrets.AWS_REGION }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          python Geltonas_MVP.py
+          python Ecuador-Jobs-GEI-earthengine-API/CO2.py
           
-          echo "## Model Metrics" > report.md
-          cat metrics.txt >> report.md
-          
-          echo "\n## Model Performance" >> report.md
-          echo "Model performance metrics are shown below." >> report.md
-
-          echo "![](./graph.png)" >> report.md
-          cml comment create report.md
