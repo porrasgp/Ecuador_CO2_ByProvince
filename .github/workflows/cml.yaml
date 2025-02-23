@@ -13,12 +13,12 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
-      - name: Run Geltonas_MVP script
+      - name: CO2.py
+        working-directory: Ecuador-Jobs-GEI-earthengine-API
+        run: python CO2.py 
+        timeout-minutes: 120
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: ${{ secrets.AWS_REGION }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          python Ecuador-Jobs-GEI-earthengine-API/CO2.py
+          GITHUB_TOKEN: ${{ secrets.GITHUB }}
           
