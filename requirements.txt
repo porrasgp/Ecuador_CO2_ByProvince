@@ -3,4 +3,4 @@ streamlit
 pandas 
 xarray 
 netCDF4
-dotenv
+python-dotenv
