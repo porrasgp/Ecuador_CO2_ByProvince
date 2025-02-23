@@ -18,9 +18,6 @@ s3 = boto3.client(
     aws_secret_access_key='AWS_SECRET_ACCESS_KEY'
 )
 
-# Ensure AWS credentials and region are correctly set
-if not AWS_ACCESS_KEY_ID or not AWS_SECRET_ACCESS_KEY or not AWS_REGION:
-    raise ValueError("AWS credentials or region are not set properly.")
     
 bucket_name = 'meeo-s5p'
 prefix = 'products/CO2/2023/10/'
