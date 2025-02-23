@@ -1,31 +1,19 @@
-import streamlit as st
 import boto3
+from botocore import UNSIGNED
+from botocore.client import Config
 import xarray as xr
 import os
-from dotenv import load_dotenv  # Importar load_dotenv para cargar variables de entorno
+import streamlit as st
 
-# Cargar variables de entorno desde un archivo .env (solo si no se ejecuta en GitHub Actions)
-if not os.getenv("GITHUB_ACTIONS"):
-    load_dotenv()
-
-# Obtener credenciales de AWS desde variables de entorno
-AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
-AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
-
-# Verificar que las credenciales estén disponibles
-if not AWS_ACCESS_KEY_ID or not AWS_SECRET_ACCESS_KEY:
-    st.error("Credenciales de AWS no configuradas. Asegúrate de definir AWS_ACCESS_KEY_ID y AWS_SECRET_ACCESS_KEY.")
-    st.stop()
-
-# Configuración de AWS S3
+# Configuración de AWS S3 sin credenciales (acceso público)
 s3 = boto3.client(
     's3',
-    aws_access_key_id=AWS_ACCESS_KEY_ID,  # Usar las variables, no cadenas literales
-    aws_secret_access_key=AWS_SECRET_ACCESS_KEY
+    config=Config(signature_version=UNSIGNED),  # Desactiva la autenticación
+    region_name='eu-central-1'  # Región del bucket
 )
 
 bucket_name = 'meeo-s5p'
-prefix = 'products/CO2/2023/10/'
+prefix = 'NRTI/'  # Prefijo para los datos Near Real Time (NRTI)
 
 try:
     # Listar objetos en el bucket
@@ -42,12 +30,13 @@ try:
                 break
 
         # Cargar y mostrar los datos en Streamlit
-        st.title("Datos de CO2 de Sentinel-5P")
+        st.title("Datos de Sentinel-5P Near Real Time (NRTI)")
 
         try:
             ds = xr.open_dataset('local_file.nc')
             st.write(ds)
 
+            # Verificar si el archivo contiene datos de CO2
             if 'CO2' in ds:
                 st.line_chart(ds['CO2'].mean(dim=['lat', 'lon']))
             else:
